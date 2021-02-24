@@ -2,14 +2,14 @@
 #Authors: Inga Run Helgasdottir and Judy Fong
 # OS: Debian or Ubuntu
 # minimum RAM: 8 GB
-# minimum CPU: 4 
-# Description: These instructions assume this is a fresh install of the repo 
-#   in the user's home folder where 
+# minimum CPU: 4
+# Description: These instructions assume this is a fresh install of the repo
+#   in the user's home folder where
 # a) you have a lexicon and want to create models or
 # b) all you want to do is decode audio files from existing models.
 
 #(1)
-git clone https://github.com/cadia-lvl/kaldi.git althingi-kaldi
+git clone https://github.com/kaldi-asr/kaldi
 # This is done by kaldi/tools make so not necessary: git clone https://github.com/xianyi/OpenBLAS.git
 
 # (2)
@@ -20,7 +20,7 @@ sudo apt-get upgrade
 sudo apt-get install g++ # might need the 4.8 version but 5 should work, 6 definitely won't work
 sudo apt-get install python-dev python-pip
 sudo apt-get install swig
-sudo apt-get install python-numpy python-scipy python-matplotlib ipython 
+sudo apt-get install python-numpy python-scipy python-matplotlib ipython
 sudo apt-get install -y zlib1g-dev make automake autoconf libtool subversion gfortran libatlas3-base
 sudo apt-get install build-essential libboost-all-dev cmake libbz2-dev liblzma-dev
 sudo apt-get install ffmpeg
@@ -30,12 +30,12 @@ sudo pip install nltk #only works if you are installing to the correct python ve
 
 # ERRORS:
 
-# If getting errors from making ivectors, then it may be a memory problem. 
+# If getting errors from making ivectors, then it may be a memory problem.
 # Therefore, please refer to kaldi/tools/Makefile section: openblas_compiled
 
 # which will tell you how to fix the NUM_THREADS/ "Program is Terminated. Because you tried to allocate too many memory
 # # regions." error.
-  
+
 # But our solution is to have at least 4 CPUs and 8-16 GB of RAM
 
 # (3)
@@ -45,7 +45,7 @@ sudo pip install nltk #only works if you are installing to the correct python ve
 # They will recommend you install missing dependencies so do that. Then,
 
 # if have to, run 'make 'in tools multiple times do:
-make distclean 
+make distclean
 sudo rm -rf OpenBLAS
 
 
@@ -54,15 +54,15 @@ sudo rm -rf OpenBLAS
 
 #Make sure to install the necessary external tools mentioned on kaldi/egs/althingi/README.md
 # Swig and numpy necessary for sequitur
-cd /opt/althingi-kaldi/tools/
+cd /opt/kaldi/tools/
 #make sure sequitur is installed from tools/extra
 ./extras/check_dependencies.sh
 make -j &> kaldi.tools.log &
 # If the openfst and sequitur symlinks have not been created I create them
-ln -s /opt/althingi-kaldi/tools/openfst-1.6.7 /opt/althingi-kaldi/tools/openfst
-ln -s /opt/althingi-kaldi/tools/sequitur-g2p /opt/althingi-kaldi/tools/sequitur
+ln -s /opt/kaldi/tools/openfst-1.6.7 /opt/kaldi/tools/openfst
+ln -s /opt/kaldi/tools/sequitur-g2p /opt/kaldi/tools/sequitur
 
-cd /opt/althingi-kaldi/src
+cd /opt/kaldi/src
 ./configure --shared --openblas-root=../tools/OpenBLAS/install
 make -j > kaldi.tools.log
 make depend -j
@@ -77,8 +77,8 @@ wget https://www.openfst.org/twiki/pub/GRM/ThraxDownload/thrax-1.2.7.tar.gz
 tar -zxvf thrax-1.2.7.tar.gz
 cd thrax-1.2.7
 #You have to make sure the thrax configuration file has the right flags and points to the right repositories.
-CPPFLAGS=-I/opt/althingi-kaldi/tools/openfst/include/ LDFLAGS=-L/opt/althingi-kaldi/tools/openfst/lib/ ./configure --enable-static=no
-#if you can figure out how to make this work, please submit a pull request with the fix: --enable-readline=yes 
+CPPFLAGS=-I/opt/kaldi/tools/openfst/include/ LDFLAGS=-L/opt/kaldi/tools/openfst/lib/ ./configure --enable-static=no
+#if you can figure out how to make this work, please submit a pull request with the fix: --enable-readline=yes
 make &> thrax-installer.log &
 sudo make install
 cd ../
@@ -112,7 +112,7 @@ cd ../
 wget https://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh
 bash Miniconda2-latest-Linux-x86_64.sh
 
-#I created a conda environment: 
+#I created a conda environment:
 conda create -n thenv python=2.7
 sudo pip install miniconda Theano
 
@@ -124,7 +124,7 @@ conda deactivate
 #theano asked that mkl would be installed. I  installed it with
 conda install mkl-service
 
-#I have the problem that a lot of python modules are in 
+#I have the problem that a lot of python modules are in
 #/tools/miniconda2/lib/python2.7/site-packages/ which is not in sys.path so I created the file  so now they are.
 #(recommended here: https://stackoverflow.com/questions/12257747/adding-a-file-path-to-sys-path-in-python)
 # NOTE! We had to do the following on terra:
@@ -148,7 +148,7 @@ cd libgpuarray
 # Modify path.sh and conf/path.conf to use the relevant paths
 # Make sure the paths to external tools like sequitur kenlm are correct
 cd /opt
-ln -s /opt/althingi-kaldi/egs/althingi/s5/ ASR
+ln -s /opt/kaldi/egs/althingi/s5/ ASR
 cd ASR
 . ./path.sh
 ln -sfn ../../wsj/s5/utils utils
@@ -174,7 +174,7 @@ Althingi_setup.sh
 # Move necessary data over to the new server
 
 # (10)
-#Run the script: 
+#Run the script:
 ./local/compile_grammar.sh
 #to compile the ABBR_AND_DENORM.fst and INSERT_PERIODS.fst yourself
 # Copy the required FSTs from terra first

@@ -29,10 +29,11 @@ The subdirectory of this directory, s5, contains scripts for the following three
 1) Data normalization, alignment and segmentation.
 2) Training of an ASR
 3) Postprocessing of the ASR output, including punctuation restoration, capitalization and denormalization of numbers and common abbreviations
-4) In kaldi/src/fstbin there are two files, fststringcompile.cc and expand-numbers.cc, that are not in the official Kaldi toolkit. They are used for the expansion of abbreviations and numbers in the process of text normalization.
+4) In tools there is a tar file containing two compiled c++ files, fststringcompile and expand-numbers. They are written by Robert Kjaran and are not in the official Kaldi toolkit. They are used for the expansion of abbreviations and numbers in the process of text normalization. The tar file has to be expanded and the files put into kaldi/src/fstbin before expansion is performed. (A command in run.sh search for them there and performs the expansion and move if needed.)
 
 #### EXTERNAL TOOLS NEEDED
 
+- [Kaldi](https://kaldi-asr.org/): The whole project is based on code from Kaldi and is run within Kaldi.
 - [OpenGrm Thrax](http://www.opengrm.org/): For number and abbreviation expansion. As well as for the postprocessing of the ASR output.
   - Requires [OpenFst 1.6.0](http://www.openfst.org/twiki/bin/view/FST/WebHome) or higher, configured with the ```--enable-grm``` flag (installed when installing Kaldi).
 - [KenLM](https://kheafield.com/code/kenlm/): For language modelling, fast and allows pruning.
