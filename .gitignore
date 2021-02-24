@@ -1,0 +1,94 @@
+# Object files.
+*.slo
+*.lo
+*.o
+*.obj
+*.pyc
+
+# Profiling files and core dumps.
+*.nvprof
+core
+
+# Compiled dynamic libraries.
+*.so
+*.dylib
+*.dll
+
+# Compiled static libraries.
+*.lai
+*.la
+*.a
+*.lib
+
+# Test log files.
+*.testlog
+*.log
+
+# Emacs autosave and backup files.
+[#]*[#]
+.[#]*
+*~
+
+# Python compiled bytecode files.
+*.pyc
+
+# Some weird thing that macOS creates.
+*.dSYM
+.DS_Store
+
+# Windows executable, symbol and some weird files.
+*.exe
+*.pdb
+*.exp
+*.manifest
+/kaldiwin_vs*
+.vscode
+.idea
+
+# Thrax fst and archive files
+*.far
+*.fst
+
+# Temporary files
+*.tmp
+tmp*
+
+# Punctuator model file
+*.pcl
+
+# data dirs
+s*/mfcc
+s*/plp
+s*/exp
+s*/data
+s*/wav
+s*/enhan
+s*/text_norm/*
+s*/recognize/*
+s*/py3env
+s*/venv3
+s*/q
+s*/Makefile
+s*/punctuator/example
+s*/punctuator/libgpuarray
+s*/punctuator/log
+s*/punctuator/processed_data
+s*/punctuator/Miniconda2-latest-Linux-x86_64.sh
+s*/punctuator/theano-env.tar.gz
+s*/paragraph/log
+s*/paragraph/processed_data
+s*/local/auxiliary
+s*/local/new_speeches/auxiliary
+s*/punctuator/local/auxiliary
+s*/local/recognize/auxiliary
+s*/slurm-*.out
+s*/local/keras_punctuation/processed_data*
+s*/local/keras_punctuation/auxiliary
+s*/*.ctm
+s*/*.out
+s*/*.yml
+s*/*.txt
+s5/punctuator/processed_data_rmh/
+s5/punctuator/processed_data_rmh_all_punctsymbols/
+s*/steps
+s*/utils

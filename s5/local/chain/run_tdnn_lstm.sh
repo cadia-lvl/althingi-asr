@@ -1,0 +1,1 @@
+/home/staff/inga/kaldi/egs/althingi/s5/local/chain/tuning/run_tdnn_lstm_2.sh
